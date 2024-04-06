@@ -1,4 +1,5 @@
 import type { Dispatch, SetStateAction } from "react"
+import { OrderActions } from "../reducers/order-reducer"
 
 const tipOptions = [
     {
@@ -19,12 +20,12 @@ const tipOptions = [
 ]
 
 type TipPercentageFormProps = {
-    setTip: Dispatch<SetStateAction<number>>,
+    dispatch: Dispatch<OrderActions>,
     tip: number
 }
 
 
-export const TipPercentageForm = ({ setTip, tip } : TipPercentageFormProps) => {
+export const TipPercentageForm = ({ dispatch, tip } : TipPercentageFormProps) => {
     return (
         <div className="p-3">
             <h3 className="font-bold text-lg">Tip:</h3>
@@ -32,7 +33,7 @@ export const TipPercentageForm = ({ setTip, tip } : TipPercentageFormProps) => {
             <form action="">
                 {tipOptions.map(option => (
                     <div key={option.id} className="flex items-center space-x-2">
-                        <input type="radio" name="tip" value={option.value} id={option.id} onChange={(e) => setTip(+e.target.value)}// + is a unary operator that converts its operand to a number
+                        <input type="radio" name="tip" value={option.value} id={option.id} onChange={(e) => dispatch({ type : 'set-tip' , payload : { tip: +e.target.value}})}// + is a unary operator that converts its operand to a number
                         checked={option.value === tip}/>
                         <label htmlFor={option.id}>{option.label}</label>
 
